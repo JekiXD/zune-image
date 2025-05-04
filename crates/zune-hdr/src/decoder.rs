@@ -316,11 +316,11 @@ where
             .chunks_exact_mut(output_scanline_size)
             .take(self.height)
         {
-            // if self.width < 8 || self.width > 0x7fff {
-            //     self.decompress(&mut scanline, self.width as i32, 0)?;
-            //     convert_scanline(&scanline, out_scanline);
-            //     continue;
-            // }
+            if self.width < 8 || self.width > 0x7fff {
+                self.decompress(&mut scanline, self.width as i32, 0)?;
+                convert_scanline(&scanline, out_scanline);
+                continue;
+            }
 
             let mut i = self.buf.read_u8();
 
